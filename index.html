@@ -6,38 +6,17 @@
   <title>Real Broker BC — New Agent Mentor Program</title>
   <meta name="description" content="Real Broker BC New Agent Mentor Program: requirements, mentor agreement, training resources, and next steps." />
 
-  <!--
-    Brand note (important):
-    Real's official brand colors + approved logos are provided via the Brand Elements portal / Marketing Center.
-    Update the CSS tokens below with the official HEX values you copy from the portal.
-    Sources:
-      - https://support.therealbrokerage.com/hc/en-us/articles/19610278858007-What-are-Real-s-Brand-Colors
-      - https://support.therealbrokerage.com/hc/en-us/articles/16488129375639-Where-can-I-find-the-Real-logos
-
-    Logo note:
-    Place your approved logo files in /assets and keep the filenames below:
-      assets/real-logo.svg            (dark-on-light)
-      assets/real-logo-white.svg      (light-on-dark)
-  -->
-
   <style>
     :root{
-      /* === Replace these with Real's official HEX codes from Brand Elements portal === */
-      --real-onyx: #0b0f19;     /* placeholder: update */
-      --real-chalk: #f6f7fb;    /* placeholder: update */
-      --real-slate: #1f2937;    /* placeholder: update */
-      --real-cobalt: #2563eb;   /* placeholder: update */
-      --real-aqua: #06b6d4;     /* placeholder: update */
-      --real-seaglass: #5eead4; /* placeholder: update */
-      --real-coral: #fb7185;    /* placeholder: update */
-      --real-legacyblue: #1d4ed8;/* placeholder: update */
-
-      --bg: var(--real-onyx);
+      /* Optional: swap for Real’s official HEX values */
+      --bg:#0b0f19;
       --panel: rgba(255,255,255,.06);
       --panel2: rgba(255,255,255,.04);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --line: rgba(255,255,255,.10);
+      --accent:#06b6d4;
+      --accent2:#2563eb;
       --shadow: 0 14px 40px rgba(0,0,0,.45);
       --radius: 18px;
       --radius2: 26px;
@@ -76,11 +55,9 @@
     .brand{
       display:flex; align-items:center; gap:12px;
       text-decoration:none;
-      min-width: 240px;
+      min-width: 260px;
     }
     .brand img{height:28px; width:auto; display:block}
-    .brand .fallback{font-weight: 800; letter-spacing:.4px}
-
     nav{
       display:flex; flex-wrap:wrap; gap: 10px 14px;
       align-items:center; justify-content:flex-end;
@@ -103,6 +80,7 @@
       color: var(--text);
       text-decoration:none;
       font-weight: 650;
+      cursor:pointer;
     }
     .btn:hover{background: rgba(255,255,255,.10)}
     .btn.primary{
@@ -154,7 +132,7 @@
       margin: 0 0 16px;
       font-size: 16px;
       color: var(--muted);
-      max-width: 66ch;
+      max-width: 70ch;
     }
     .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top: 14px}
     .kpis{
@@ -201,7 +179,7 @@
       display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
       margin: 12px 0;
     }
-    .section-head h2{margin:0; font-size: 22px; letter-spacing: -0.01em;}
+    .section-head h2{margin:0; font-size: 22px; letter-spacing: -0.01em}
     .section-head p{margin:0; color: var(--muted); max-width: 78ch}
 
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
@@ -221,15 +199,6 @@
     .card p{margin: 0 0 12px; color: var(--muted); font-size: 14px}
     .bullet{margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px}
     .bullet li{margin: 6px 0}
-    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px}
-    .pill{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-    }
 
     .timeline{position: relative; padding-left: 18px}
     .timeline:before{
@@ -248,11 +217,28 @@
     .step:before{
       content:""; position:absolute; left:-1px; top: 18px;
       width: 10px; height: 10px; border-radius: 999px;
-      background: var(--real-aqua);
+      background: var(--accent);
       box-shadow: 0 0 0 4px rgba(6,182,212,.20);
     }
     .step strong{display:block; margin-bottom: 4px}
     .step span{color: var(--muted); font-size: 14px}
+
+    .mentor-toolbar{
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center; justify-content:space-between;
+      margin: 6px 0 12px;
+    }
+    .mentor-toolbar .left{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .input{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-width: 240px;
+      outline:none;
+    }
+    .hint{color: var(--muted); font-size: 13px}
 
     .mentor-grid{
       display:grid;
@@ -268,6 +254,7 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,.04);
       display:flex; gap: 14px; align-items:flex-start;
+      min-height: 120px;
     }
     .avatar{
       width: 44px; height: 44px;
@@ -286,6 +273,7 @@
       border: 1px solid var(--line);
       background: rgba(0,0,0,.10);
       color: var(--muted);
+      max-width: 100%;
     }
 
     details{
@@ -295,11 +283,7 @@
       padding: 12px 14px;
     }
     details + details{margin-top: 10px}
-    summary{
-      cursor:pointer;
-      font-weight: 700;
-      list-style:none;
-    }
+    summary{cursor:pointer; font-weight: 700; list-style:none}
     summary::-webkit-details-marker{display:none}
     details p{margin: 10px 0 0; color: var(--muted); font-size: 14px}
 
@@ -310,8 +294,6 @@
       margin-top: 24px;
       font-size: 13px;
     }
-    .footergrid{display:grid; grid-template-columns: 1.3fr .7fr; gap: 14px}
-    @media (max-width: 960px){ .footergrid{grid-template-columns:1fr} }
     .fine{font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,.55)}
   </style>
 </head>
@@ -321,8 +303,8 @@
     <div class="wrap">
       <div class="inner">
         <a class="brand" href="#top" aria-label="Real Broker BC Mentor Program">
-          <img src="real-logo-white.svg" alt="Real" onerror="this.style.display='none';document.getElementById('brandFallback').style.display='block';" />
-          <div id="brandFallback" class="fallback" style="display:none;">REAL</div>
+          <!-- Logo file expected in repo ROOT next to index.html -->
+          <img src="real-logo-white.png" alt="Real" />
           <div style="opacity:.65;font-weight:700">BC Mentor Program</div>
         </a>
 
@@ -383,16 +365,16 @@
             </div>
 
             <div class="mini">
-              <h3>Official program resources</h3>
-              <a href="https://support.therealbrokerage.com/hc/en-us/articles/23563972741271-British-Columbia-Mentor-Program" target="_blank" rel="noopener">BC Mentor Program (Real Support)</a>
-              <a href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/licensing-education/applied-practice-course" target="_blank" rel="noopener">BCFSA Applied Practice Course</a>
-              <a href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/becoming-licensed/real-estate-sales" target="_blank" rel="noopener">BCFSA Licensing Overview</a>
+              <h3>Real Support (BC)</h3>
+              <a href="https://support.therealbrokerage.com/hc/en-us/articles/23563972741271-British-Columbia-Mentor-Program" target="_blank" rel="noopener">Mentorship program details</a>
+              <a href="https://support.therealbrokerage.com/hc/en-us/articles/24028367120535" target="_blank" rel="noopener">Teams</a>
+              <a href="https://support.therealbrokerage.com/hc/en-us/articles/24155497646743" target="_blank" rel="noopener">Individual mentors</a>
             </div>
 
             <div class="mini">
-              <h3>Need help?</h3>
-              <a href="#next-steps">See next steps</a>
-              <a href="#faq">Read the FAQ</a>
+              <h3>BCFSA</h3>
+              <a href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/licensing-education/applied-practice-course" target="_blank" rel="noopener">Applied Practice Course</a>
+              <a href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/becoming-licensed/real-estate-sales" target="_blank" rel="noopener">Becoming licensed</a>
             </div>
           </aside>
         </div>
@@ -412,19 +394,16 @@
           <div class="card">
             <h3>1) BCFSA first-time license</h3>
             <p>You must have a First Time License issued by BCFSA.</p>
-            <div class="pillrow"><span class="pill">Regulatory</span><span class="pill">BCFSA</span></div>
           </div>
 
           <div class="card">
             <h3>2) Applied Practice Course started</h3>
             <p>You must have completed a portion of the Applied Practice Course (APC).</p>
-            <div class="pillrow"><span class="pill">Education</span><span class="pill">APC</span></div>
           </div>
 
           <div class="card">
             <h3>3) Mentor Agreement in place</h3>
             <p>Mentor Agreement must be completed through onboarding before supervised assignments.</p>
-            <div class="pillrow"><span class="pill">Onboarding</span><span class="pill">Compliance</span></div>
           </div>
         </div>
       </div>
@@ -435,27 +414,25 @@
         <div class="section-head">
           <div>
             <h2>How the program works</h2>
-            <p>A straightforward, supervised path from new license to confident, compliant production.</p>
+            <p>Mentorship gives you supervised reps while you complete APC Brokerage-supervised assignments.</p>
           </div>
         </div>
 
         <div class="grid2">
           <div class="card">
             <h3>Mentor responsibilities</h3>
-            <p>Your Mentor is a local experienced Real agent who supports you while you complete Brokerage-supervised APC assignments.</p>
             <ul class="bullet">
               <li>Supervise and guide APC supervised assignments</li>
-              <li>Provide transaction guidance and professional development</li>
-              <li>Support compliance and best practices</li>
+              <li>Provide transaction support + practical guidance</li>
+              <li>Reinforce compliance and best practices</li>
             </ul>
           </div>
 
           <div class="card">
             <h3>Agent responsibilities</h3>
-            <p>You’re still the operator. The Mentor is the guardrail.</p>
             <ul class="bullet">
               <li>Complete APC requirements on schedule</li>
-              <li>Use mentor guidance for transactions + compliance questions</li>
+              <li>Use mentor guidance for deals + compliance questions</li>
               <li>Follow Real Broker and BCFSA standards</li>
             </ul>
           </div>
@@ -469,8 +446,8 @@
             <div class="step"><strong>Step 1 — Confirm eligibility</strong><span>First Time License + APC started.</span></div>
             <div class="step"><strong>Step 2 — Connect with onboarding</strong><span>Mentor assignment + Mentor Agreement setup.</span></div>
             <div class="step"><strong>Step 3 — Complete Mentor Agreement</strong><span>Agreement + expectations aligned before supervised assignments.</span></div>
-            <div class="step"><strong>Step 4 — Work through APC assignments</strong><span>Use your mentor + resources to complete supervised requirements.</span></div>
-            <div class="step"><strong>Step 5 — Transition out of mentorship</strong><span>Once APC supervised requirements are satisfied.</span></div>
+            <div class="step"><strong>Step 4 — Work through APC assignments</strong><span>Use your mentor + resources to finish supervised requirements.</span></div>
+            <div class="step"><strong>Step 5 — Transition out of mentorship</strong><span>After supervised requirements are satisfied.</span></div>
           </div>
         </div>
       </div>
@@ -480,42 +457,23 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>Available mentors</h2>
-            <p>Replace the placeholders below with your current mentor roster. Keep it current and this becomes a permanent onboarding asset.</p>
+            <h2>Individual mentors</h2>
+            <p>Auto-loads from the official “British Columbia – Available Mentors” page (best-effort). You can also maintain a local list if needed.</p>
           </div>
           <div>
-            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/23563972741271-British-Columbia-Mentor-Program" target="_blank" rel="noopener">View official program page</a>
+            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24155497646743" target="_blank" rel="noopener">View official list</a>
           </div>
         </div>
 
-        <div class="mentor-grid">
-          <div class="mentor">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <h4>Mentor Name</h4>
-              <div class="meta">Market: Victoria • Experience: 5+ years</div>
-              <div class="chips"><span class="chip">Residential</span><span class="chip">Condo</span><span class="chip">First-time buyers</span></div>
-            </div>
+        <div class="mentor-toolbar">
+          <div class="left">
+            <input id="mentorSearch" class="input" placeholder="Search mentors by name, city, expertise…" />
+            <button class="btn small" id="refreshMentors">Refresh mentors</button>
           </div>
-
-          <div class="mentor">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <h4>Mentor Name</h4>
-              <div class="meta">Market: Vancouver • Experience: 7+ years</div>
-              <div class="chips"><span class="chip">Listings</span><span class="chip">Negotiation</span><span class="chip">Compliance</span></div>
-            </div>
-          </div>
-
-          <div class="mentor">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <h4>Mentor Name</h4>
-              <div class="meta">Market: Fraser Valley • Experience: 10+ years</div>
-              <div class="chips"><span class="chip">Buyers</span><span class="chip">Rural</span><span class="chip">New builds</span></div>
-            </div>
-          </div>
+          <div class="hint" id="mentorStatus">Loaded: <span id="mentorCount">0</span></div>
         </div>
+
+        <div class="mentor-grid" id="mentorGrid"></div>
 
         <div style="height:12px"></div>
         <div class="card">
@@ -525,6 +483,11 @@
             Please connect with onboarding to have this completed.
           </p>
         </div>
+
+        <div style="height:12px"></div>
+        <div class="fine">
+          Auto-load note: Some help centers block cross-site requests (CORS). This page uses a public fetch-proxy and caches results in your browser. If the proxy fails, switch to a local mentors list.
+        </div>
       </div>
     </section>
 
@@ -533,15 +496,15 @@
         <div class="section-head">
           <div>
             <h2>Training & resources</h2>
-            <p>Use these links to register, learn, and stay compliant while you complete your APC assignments.</p>
+            <p>Use these links to register, learn, and stay compliant while you complete APC assignments.</p>
           </div>
         </div>
 
         <div class="grid2">
           <div class="card">
-            <h3>Agent training docs</h3>
+            <h3>Agent training & registration</h3>
             <p>Internal BC training resources and registration links.</p>
-            <div class="pillrow">
+            <div class="cta-row">
               <a class="btn small" href="https://docs.google.com/document/d/1PZkQwiAbhFOYlzsz3Iqn05WoevbEaESQXUaj0Temk0c/edit?tab=t.0" target="_blank" rel="noopener">Training resources</a>
               <a class="btn small" href="https://docs.google.com/document/d/1Rg8dQKpKzWCAsWVMsUQfW50HZT7NtKUo2p9v7VF19uk/edit?tab=t.0" target="_blank" rel="noopener">More resources</a>
             </div>
@@ -549,8 +512,8 @@
 
           <div class="card">
             <h3>BCFSA official pages</h3>
-            <p>Licensing and course information directly from BCFSA.</p>
-            <div class="pillrow">
+            <p>Licensing and course info directly from BCFSA.</p>
+            <div class="cta-row">
               <a class="btn small" href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/becoming-licensed/real-estate-sales" target="_blank" rel="noopener">Becoming licensed</a>
               <a class="btn small" href="https://www.bcfsa.ca/industry-resources/real-estate-professional-resources/education-and-licensing/licensing-education/applied-practice-course" target="_blank" rel="noopener">Applied Practice Course</a>
             </div>
@@ -561,18 +524,18 @@
 
         <div class="grid3">
           <div class="card">
-            <h3>Real Support: BC program</h3>
-            <p>Mentor program details and process.</p>
+            <h3>Mentorship program details</h3>
+            <p>Official BC Mentor Program overview and process (Real Support).</p>
             <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/23563972741271-British-Columbia-Mentor-Program" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="card">
-            <h3>Real Support article</h3>
-            <p>Additional BC onboarding/support resource.</p>
+            <h3>Teams</h3>
+            <p>British Columbia available teams list (Real Support).</p>
             <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24028367120535" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="card">
-            <h3>Real Support article</h3>
-            <p>Additional BC onboarding/support resource.</p>
+            <h3>Individual mentors</h3>
+            <p>British Columbia available mentors list (Real Support).</p>
             <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24155497646743" target="_blank" rel="noopener">Open</a>
           </div>
         </div>
@@ -584,7 +547,7 @@
         <div class="section-head">
           <div>
             <h2>FAQ</h2>
-            <p>Keep this short and blunt. New agents don’t read walls of text.</p>
+            <p>Short, direct answers.</p>
           </div>
         </div>
 
@@ -606,16 +569,12 @@
 
           <div>
             <details open>
-              <summary>Where do I find Real logos and official brand colors?</summary>
-              <p>In Real’s Brand Elements portal / Marketing Center (approved logos and official color swatches). See: https://support.therealbrokerage.com/hc/en-us/articles/16488129375639-Where-can-I-find-the-Real-logos and https://support.therealbrokerage.com/hc/en-us/articles/19610278858007-What-are-Real-s-Brand-Colors</p>
-            </details>
-            <details>
-              <summary>Can I start writing offers immediately?</summary>
-              <p>You should follow the supervision expectations set out in your Mentor Agreement and use your mentor as the compliance guardrail. Don’t guess.</p>
+              <summary>Where do I start?</summary>
+              <p>Confirm eligibility → connect with onboarding → complete Mentor Agreement → complete APC supervised requirements.</p>
             </details>
             <details>
               <summary>Who do I contact if I’m stuck?</summary>
-              <p>Start with your Mentor. If it’s an onboarding / agreement issue, contact onboarding.</p>
+              <p>Start with your Mentor. For onboarding/agreement issues, contact onboarding.</p>
             </details>
           </div>
         </div>
@@ -624,24 +583,14 @@
 
     <footer>
       <div class="wrap">
-        <div class="footergrid">
-          <div>
-            <div style="font-weight:800; margin-bottom:8px">Real Broker BC — Mentor Program</div>
-            <div>Single-page onboarding resource. Update mentor roster + links as needed.</div>
-            <div style="height:10px"></div>
-            <div class="fine">Branding: pull official Real logo files + HEX codes from Brand Elements portal / Marketing Center.</div>
-          </div>
-          <div class="card" style="margin:0">
-            <h3 style="margin-top:0">Deploy as a live link</h3>
-            <p style="margin-bottom:10px">Upload as <span style="font-family:var(--mono)">index.html</span> to a GitHub repo and enable GitHub Pages.</p>
-            <a class="btn small" href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener">GitHub Pages instructions</a>
-          </div>
-        </div>
+        <div style="font-weight:800; margin-bottom:8px">Real Broker BC — Mentor Program</div>
+        <div class="fine">Mentor list cache refreshes in your browser when you click “Refresh mentors”.</div>
       </div>
     </footer>
   </main>
 
   <script>
+    // Smooth scroll for in-page anchors
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href');
@@ -651,6 +600,153 @@
         el.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
+
+    const MENTOR_SOURCE = "https://support.therealbrokerage.com/hc/en-us/articles/24155497646743";
+    // Public fetch proxy to avoid CORS. If Real blocks/changes structure, this can fail.
+    const PROXY = (url) => `https://r.jina.ai/${url}`;
+
+    const state = { mentors: [] };
+
+    function escapeHtml(s){
+      return (s||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    }
+
+    function chipList(expertise){
+      if(!expertise) return "";
+      const parts = expertise.split(/,\s*/).map(p=>p.trim()).filter(Boolean).slice(0,5);
+      return parts.map(p=>`<span class="chip">${escapeHtml(p)}</span>`).join("");
+    }
+
+    function render(mentors, filter=""){
+      const q = (filter||"").trim().toLowerCase();
+      const filtered = q ? mentors.filter(m =>
+        (m.name||"").toLowerCase().includes(q) ||
+        (m.city||"").toLowerCase().includes(q) ||
+        (m.email||"").toLowerCase().includes(q) ||
+        (m.expertise||"").toLowerCase().includes(q)
+      ) : mentors;
+
+      const grid = document.getElementById("mentorGrid");
+      grid.innerHTML = filtered.map(m => `
+        <div class="mentor">
+          <div class="avatar" aria-hidden="true"></div>
+          <div style="min-width:0">
+            <h4>${escapeHtml(m.name || "Mentor")}</h4>
+            <div class="meta">${escapeHtml(m.city || "")}${m.email ? " • " + escapeHtml(m.email) : ""}</div>
+            <div class="chips">${chipList(m.expertise || "")}</div>
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("mentorCount").textContent = filtered.length.toString();
+      document.getElementById("mentorStatus").textContent = `Loaded: ${filtered.length}`;
+    }
+
+    function setStatus(msg){
+      document.getElementById("mentorStatus").textContent = msg;
+    }
+
+    async function fetchMentors(){
+      setStatus("Refreshing mentors…");
+      try{
+        const res = await fetch(PROXY(MENTOR_SOURCE));
+        if(!res.ok) throw new Error("fetch failed");
+        const text = await res.text();
+
+        // Try HTML table parse first
+        let mentors = [];
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        const table = doc.querySelector("table");
+        if(table){
+          const rows = Array.from(table.querySelectorAll("tr")).slice(1);
+          for(const r of rows){
+            const tds = Array.from(r.querySelectorAll("td")).map(td => td.textContent.trim());
+            // Expected: Name | Email | City | Areas of Expertise
+            if(tds.length >= 3){
+              mentors.push({
+                name: tds[0] || "",
+                email: tds[1] || "",
+                city: tds[2] || "",
+                expertise: (tds[3] || "").replace(/\s+/g," ").trim()
+              });
+            }
+          }
+        }
+
+        // If no table, plain text fallback (email heuristic)
+        if(!mentors.length){
+          const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+          const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
+
+          for(const line of lines){
+            const m = line.match(emailRe);
+            if(!m) continue;
+            const email = m[0];
+            const pre = line.slice(0, m.index).trim();
+            const post = line.slice((m.index + email.length)).trim();
+            if(!pre) continue;
+            const parts = post.split(/\s{2,}|\t+/).filter(Boolean);
+            const city = parts[0] || "";
+            const expertise = parts.slice(1).join(" ").trim();
+            mentors.push({ name: pre, email, city, expertise });
+          }
+        }
+
+        // de-dup + clean
+        const seen = new Set();
+        mentors = mentors.filter(m=>{
+          const key = (m.name+"|"+m.email).toLowerCase();
+          if(seen.has(key)) return false;
+          seen.add(key);
+          return m.name && (m.email || m.city || m.expertise);
+        });
+
+        if(!mentors.length) throw new Error("no mentors parsed");
+
+        state.mentors = mentors;
+        localStorage.setItem("rb_bc_mentors_cache_v1", JSON.stringify({ts: Date.now(), mentors}));
+        render(state.mentors, document.getElementById("mentorSearch").value);
+        setStatus(`Loaded: ${state.mentors.length}`);
+      }catch(err){
+        const cached = localStorage.getItem("rb_bc_mentors_cache_v1");
+        if(cached){
+          try{
+            const obj = JSON.parse(cached);
+            state.mentors = obj.mentors || [];
+            render(state.mentors, document.getElementById("mentorSearch").value);
+            setStatus(`Loaded from cache: ${state.mentors.length}`);
+            return;
+          }catch(e){}
+        }
+
+        state.mentors = [];
+        render(state.mentors, document.getElementById("mentorSearch").value);
+        setStatus("Could not auto-load mentors (proxy/CORS/page structure). Use the official link above.");
+      }
+    }
+
+    document.getElementById("mentorSearch").addEventListener("input", (e)=>{
+      render(state.mentors, e.target.value);
+    });
+
+    document.getElementById("refreshMentors").addEventListener("click", ()=>{
+      fetchMentors();
+    });
+
+    // Init: load cache then refresh
+    (function init(){
+      const cached = localStorage.getItem("rb_bc_mentors_cache_v1");
+      if(cached){
+        try{
+          const obj = JSON.parse(cached);
+          state.mentors = obj.mentors || [];
+          render(state.mentors, "");
+          setStatus(`Loaded from cache: ${state.mentors.length}`);
+        }catch(e){}
+      }
+      fetchMentors();
+    })();
   </script>
 </body>
 </html>
