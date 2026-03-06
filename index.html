@@ -311,7 +311,6 @@
         <nav aria-label="Page navigation">
           <a href="#requirements">Requirements</a>
           <a href="#how">How it works</a>
-          <a href="#mentors">Mentors</a>
           <a href="#resources">Resources</a>
           <a href="#faq">FAQ</a>
         </nav>
@@ -405,7 +404,19 @@
             <h3>3) Mentor Agreement in place</h3>
             <p>Mentor Agreement must be completed through onboarding before supervised assignments.</p>
           </div>
+        
+        <div style="height:12px"></div>
+
+        <div class="card">
+          <h3>Looking for a mentor?</h3>
+          <p>Use the official Real Support pages for the current mentor roster (no on-site list is maintained here).</p>
+          <div class="cta-row">
+            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/23563972741271-British-Columbia-Mentor-Program" target="_blank" rel="noopener">Mentorship program details</a>
+            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24028367120535" target="_blank" rel="noopener">Teams</a>
+            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24155497646743" target="_blank" rel="noopener">Individual mentors</a>
+          </div>
         </div>
+</div>
       </div>
     </section>
 
@@ -449,44 +460,6 @@
             <div class="step"><strong>Step 4 — Work through APC assignments</strong><span>Use your mentor + resources to finish supervised requirements.</span></div>
             <div class="step"><strong>Step 5 — Transition out of mentorship</strong><span>After supervised requirements are satisfied.</span></div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="mentors">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>Individual mentors</h2>
-            <p>Auto-loads from the official “British Columbia – Available Mentors” page (best-effort). You can also maintain a local list if needed.</p>
-          </div>
-          <div>
-            <a class="btn small" href="https://support.therealbrokerage.com/hc/en-us/articles/24155497646743" target="_blank" rel="noopener">View official list</a>
-          </div>
-        </div>
-
-        <div class="mentor-toolbar">
-          <div class="left">
-            <input id="mentorSearch" class="input" placeholder="Search mentors by name, city, expertise…" />
-            <button class="btn small" id="refreshMentors">Refresh mentors</button>
-          </div>
-          <div class="hint" id="mentorStatus">Loaded: <span id="mentorCount">0</span></div>
-        </div>
-
-        <div class="mentor-grid" id="mentorGrid"></div>
-
-        <div style="height:12px"></div>
-        <div class="card">
-          <h3>Mentor Agreement</h3>
-          <p>
-            The BC Mentor Agreement sets the supervision guidelines between the Mentor and the new Agent completing APC Brokerage-supervised assignments.
-            Please connect with onboarding to have this completed.
-          </p>
-        </div>
-
-        <div style="height:12px"></div>
-        <div class="fine">
-          Auto-load note: Some help centers block cross-site requests (CORS). This page uses a public fetch-proxy and caches results in your browser. If the proxy fails, switch to a local mentors list.
         </div>
       </div>
     </section>
@@ -600,153 +573,6 @@
         el.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
-
-    const MENTOR_SOURCE = "https://support.therealbrokerage.com/hc/en-us/articles/24155497646743";
-    // Public fetch proxy to avoid CORS. If Real blocks/changes structure, this can fail.
-    const PROXY = (url) => `https://r.jina.ai/${url}`;
-
-    const state = { mentors: [] };
-
-    function escapeHtml(s){
-      return (s||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-    }
-
-    function chipList(expertise){
-      if(!expertise) return "";
-      const parts = expertise.split(/,\s*/).map(p=>p.trim()).filter(Boolean).slice(0,5);
-      return parts.map(p=>`<span class="chip">${escapeHtml(p)}</span>`).join("");
-    }
-
-    function render(mentors, filter=""){
-      const q = (filter||"").trim().toLowerCase();
-      const filtered = q ? mentors.filter(m =>
-        (m.name||"").toLowerCase().includes(q) ||
-        (m.city||"").toLowerCase().includes(q) ||
-        (m.email||"").toLowerCase().includes(q) ||
-        (m.expertise||"").toLowerCase().includes(q)
-      ) : mentors;
-
-      const grid = document.getElementById("mentorGrid");
-      grid.innerHTML = filtered.map(m => `
-        <div class="mentor">
-          <div class="avatar" aria-hidden="true"></div>
-          <div style="min-width:0">
-            <h4>${escapeHtml(m.name || "Mentor")}</h4>
-            <div class="meta">${escapeHtml(m.city || "")}${m.email ? " • " + escapeHtml(m.email) : ""}</div>
-            <div class="chips">${chipList(m.expertise || "")}</div>
-          </div>
-        </div>
-      `).join("");
-
-      document.getElementById("mentorCount").textContent = filtered.length.toString();
-      document.getElementById("mentorStatus").textContent = `Loaded: ${filtered.length}`;
-    }
-
-    function setStatus(msg){
-      document.getElementById("mentorStatus").textContent = msg;
-    }
-
-    async function fetchMentors(){
-      setStatus("Refreshing mentors…");
-      try{
-        const res = await fetch(PROXY(MENTOR_SOURCE));
-        if(!res.ok) throw new Error("fetch failed");
-        const text = await res.text();
-
-        // Try HTML table parse first
-        let mentors = [];
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, "text/html");
-        const table = doc.querySelector("table");
-        if(table){
-          const rows = Array.from(table.querySelectorAll("tr")).slice(1);
-          for(const r of rows){
-            const tds = Array.from(r.querySelectorAll("td")).map(td => td.textContent.trim());
-            // Expected: Name | Email | City | Areas of Expertise
-            if(tds.length >= 3){
-              mentors.push({
-                name: tds[0] || "",
-                email: tds[1] || "",
-                city: tds[2] || "",
-                expertise: (tds[3] || "").replace(/\s+/g," ").trim()
-              });
-            }
-          }
-        }
-
-        // If no table, plain text fallback (email heuristic)
-        if(!mentors.length){
-          const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-          const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
-
-          for(const line of lines){
-            const m = line.match(emailRe);
-            if(!m) continue;
-            const email = m[0];
-            const pre = line.slice(0, m.index).trim();
-            const post = line.slice((m.index + email.length)).trim();
-            if(!pre) continue;
-            const parts = post.split(/\s{2,}|\t+/).filter(Boolean);
-            const city = parts[0] || "";
-            const expertise = parts.slice(1).join(" ").trim();
-            mentors.push({ name: pre, email, city, expertise });
-          }
-        }
-
-        // de-dup + clean
-        const seen = new Set();
-        mentors = mentors.filter(m=>{
-          const key = (m.name+"|"+m.email).toLowerCase();
-          if(seen.has(key)) return false;
-          seen.add(key);
-          return m.name && (m.email || m.city || m.expertise);
-        });
-
-        if(!mentors.length) throw new Error("no mentors parsed");
-
-        state.mentors = mentors;
-        localStorage.setItem("rb_bc_mentors_cache_v1", JSON.stringify({ts: Date.now(), mentors}));
-        render(state.mentors, document.getElementById("mentorSearch").value);
-        setStatus(`Loaded: ${state.mentors.length}`);
-      }catch(err){
-        const cached = localStorage.getItem("rb_bc_mentors_cache_v1");
-        if(cached){
-          try{
-            const obj = JSON.parse(cached);
-            state.mentors = obj.mentors || [];
-            render(state.mentors, document.getElementById("mentorSearch").value);
-            setStatus(`Loaded from cache: ${state.mentors.length}`);
-            return;
-          }catch(e){}
-        }
-
-        state.mentors = [];
-        render(state.mentors, document.getElementById("mentorSearch").value);
-        setStatus("Could not auto-load mentors (proxy/CORS/page structure). Use the official link above.");
-      }
-    }
-
-    document.getElementById("mentorSearch").addEventListener("input", (e)=>{
-      render(state.mentors, e.target.value);
-    });
-
-    document.getElementById("refreshMentors").addEventListener("click", ()=>{
-      fetchMentors();
-    });
-
-    // Init: load cache then refresh
-    (function init(){
-      const cached = localStorage.getItem("rb_bc_mentors_cache_v1");
-      if(cached){
-        try{
-          const obj = JSON.parse(cached);
-          state.mentors = obj.mentors || [];
-          render(state.mentors, "");
-          setStatus(`Loaded from cache: ${state.mentors.length}`);
-        }catch(e){}
-      }
-      fetchMentors();
-    })();
   </script>
 </body>
 </html>
